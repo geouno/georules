@@ -1,0 +1,13 @@
+{
+  "name": "@georules/logger",
+  "version": "0.0.0",
+  "main": "src/index.ts",
+  "type": "module",
+  "dependencies": {
+    "pino": "^8.16.1",
+    "pino-pretty": "^10.2.3"
+  },
+  "devDependencies": {
+    "bun-types": "latest"
+  }
+}
