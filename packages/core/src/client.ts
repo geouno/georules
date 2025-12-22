@@ -93,7 +93,7 @@ export class GeorulesClient {
     return this.request<FolderResponse[]>("/api/folders/mine");
   }
 
-  async getFolder(id: "ROOT" | FolderResponse["id"]) {
+  async getFolder(id: FolderResponse["id"]) {
     return this.request<FolderResponse>(`/api/folders/${id}`);
   }
 
@@ -104,10 +104,7 @@ export class GeorulesClient {
     });
   }
 
-  async updateFolder(
-    id: Omit<FolderResponse["id"], "ROOT">,
-    data: FolderUpdateBody,
-  ) {
+  async updateFolder(id: FolderResponse["id"], data: FolderUpdateBody) {
     return this.request<FolderResponse>(`/api/folders/${id}`, {
       method: "PUT",
       body: JSON.stringify(data),
