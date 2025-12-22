@@ -1,3 +1,4 @@
+import { sql } from "drizzle-orm";
 import {
   AnySQLiteColumn,
   integer,
@@ -81,7 +82,9 @@ export const folders = sqliteTable("folders", {
   name: text("name").notNull(),
   parentId: text("parent_id").references((): AnySQLiteColumn => folders.id), // Recursive
   ownerId: text("owner_id").notNull().references(() => user.id),
-  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(strftime('%s', 'now'))`),
 });
 
 export const rules = sqliteTable("rules", {
@@ -89,7 +92,9 @@ export const rules = sqliteTable("rules", {
   title: text("title").notNull(),
   slug: text("slug").notNull(),
   content: text("content").notNull(),
-  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(strftime('%s', 'now'))`),
   ownerId: text("owner_id").references(() => user.id),
   // Additional data (e.g. Cursor alwaysApply).
   metadata: text("metadata", { mode: "json" }),
@@ -114,8 +119,12 @@ export const shares = sqliteTable("shares", {
   permissions: integer("permissions").notNull().default(SharePermission.READ),
 
   ownerId: text("owner_id").notNull().references(() => user.id),
-  createdAt: integer("created_at", { mode: "timestamp" }).notNull(),
-  updatedAt: integer("updated_at", { mode: "timestamp" }).notNull(),
+  createdAt: integer("created_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(strftime('%s', 'now'))`),
+  updatedAt: integer("updated_at", { mode: "timestamp" })
+    .notNull()
+    .default(sql`(strftime('%s', 'now'))`),
 });
 
 export const shareItems = sqliteTable("share_items", {

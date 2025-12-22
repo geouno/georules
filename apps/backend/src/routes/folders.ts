@@ -37,7 +37,6 @@ export const foldersRouter = new Elysia({ prefix: "/folders" })
       name,
       parentId: parentId ?? null,
       ownerId: user.id,
-      createdAt: new Date(),
     }).returning();
 
     return newFolder;

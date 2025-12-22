@@ -39,7 +39,6 @@ export const rulesRouter = new Elysia({ prefix: "/rules" })
       slug,
       folderId: folderId === "ROOT" || folderId === null ? null : folderId,
       ownerId: user.id,
-      createdAt: new Date(),
       metadata: metadata ?? {},
     }).returning();
 
