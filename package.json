@@ -9,7 +9,8 @@
   "scripts": {
     "dev": "bun --filter '*' dev",
     "build": "bun --filter '*' build",
-    "test": "bun --filter '*' test"
+    "test": "bun --filter '*' test",
+    "env:backend:drizzle": "bun --cwd packages/database --env-file ../../apps/backend/.env drizzle-kit"
   },
   "workspaces": [
     "apps/*",
