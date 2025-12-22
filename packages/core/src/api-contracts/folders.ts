@@ -23,10 +23,14 @@ export const FolderCreateBodySchema = FolderInsertSchema.omit({
  * Input Schema for updating a folder.
  *
  * We omit:
+ * - id: immutable.
  * - ownerId: derived from the authenticated session.
+ * - createdAt: immutable.
  */
 export const FolderUpdateBodySchema = FolderUpdateSchema.omit({
+  id: true,
   ownerId: true,
+  createdAt: true,
 });
 
 /**
@@ -48,7 +52,9 @@ export type FolderCreateBody = z.infer<typeof FolderCreateBodySchema>;
  * Input Schema Type for updating a folder.
  *
  * We omit:
+ * - id: immutable.
  * - ownerId: derived from the authenticated session.
+ * - createdAt: immutable.
  */
 export type FolderUpdateBody = z.infer<typeof FolderUpdateBodySchema>;
 

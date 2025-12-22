@@ -23,10 +23,14 @@ export const RuleCreateBodySchema = RuleInsertSchema.omit({
  * Input Schema for updating a rule.
  *
  * We omit:
+ * - id: immutable.
  * - ownerId: derived from the authenticated session.
+ * - createdAt: immutable.
  */
 export const RuleUpdateBodySchema = RuleUpdateSchema.omit({
+  id: true,
   ownerId: true,
+  createdAt: true,
 });
 
 /**
@@ -49,7 +53,9 @@ export type RuleCreateBody = z.infer<typeof RuleCreateBodySchema>;
  * Input Schema Type for updating a rule.
  *
  * We omit:
+ * - id: immutable.
  * - ownerId: derived from the authenticated session.
+ * - createdAt: immutable.
  */
 export type RuleUpdateBody = z.infer<typeof RuleUpdateBodySchema>;
 
