@@ -4,14 +4,26 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Georules</title>
-    <!-- <link rel="stylesheet" href="https://unpkg.com/@appwrite.io/pink" /> -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,opsz,wght@0,9..40,100..1000;1,9..40,100..1000&family=JetBrains+Mono:ital,wght@0,100..800;1,100..800&display=swap"
+      rel="stylesheet"
+    />
     <script>
       (function () {
+        // Theme: check localStorage and system preference.
         const stored = localStorage.getItem("theme");
         const prefersDark =
           window.matchMedia("(prefers-color-scheme: dark)").matches;
         const isDark = stored === "dark" || (!stored && prefersDark);
         if (isDark) document.documentElement.classList.add("dark");
+
+        // Auth: check for our session hint cookie (not httpOnly).
+        const hasSession = document.cookie
+          .split("; ")
+          .some((c) => c.startsWith("georules_session="));
+        if (hasSession) document.documentElement.dataset.auth = "true";
       })();
     </script>
   </head>

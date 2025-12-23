@@ -23,6 +23,8 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
+import { authClient } from "@/lib/auth";
+import { hasSessionHint } from "@/lib/cookies";
 
 type Theme = "light" | "dark";
 
@@ -76,6 +78,32 @@ function ThemeToggle() {
     >
       {isDark ? <Sun className="h-4 w-4" /> : <Moon className="h-4 w-4" />}
     </Button>
+  );
+}
+
+/**
+ * Auth-aware buttons for header. Isolated to prevent full page rerenders.
+ * Uses cookie hint for instant first paint, then syncs with actual session.
+ */
+function AuthButtons() {
+  // Capture cookie state once on mount to avoid flicker.
+  const initialHint = React.useRef(hasSessionHint());
+  const { data: session, isPending } = authClient.useSession();
+
+  // While loading, trust the cookie hint. Once loaded, trust the API.
+  const isLoggedIn = isPending ? initialHint.current : !!session?.user;
+
+  return (
+    <>
+      {!isLoggedIn && (
+        <Button variant="outline" asChild>
+          <Link to="/login">Sign in</Link>
+        </Button>
+      )}
+      <Button asChild>
+        <Link to="/dash">{isLoggedIn ? "Launch app" : "Get started"}</Link>
+      </Button>
+    </>
   );
 }
 
@@ -331,12 +359,7 @@ export function LandingPage() {
 
           <div className="flex items-center gap-2 justify-self-end">
             <ThemeToggle />
-            <Button variant="outline" asChild>
-              <Link to="/login">Sign in</Link>
-            </Button>
-            <Button asChild>
-              <Link to="/app">Get started</Link>
-            </Button>
+            <AuthButtons />
           </div>
         </div>
       </header>
@@ -414,7 +437,7 @@ export function LandingPage() {
             </div>
             <div className="hidden sm:block">
               <Button variant="outline" asChild>
-                <Link to="/app">Open dashboard</Link>
+                <Link to="/dash">Open dashboard</Link>
               </Button>
             </div>
           </div>
@@ -563,7 +586,7 @@ export function LandingPage() {
 
                   <div className="mt-6 flex flex-col justify-center gap-2 sm:flex-row">
                     <Button asChild>
-                      <Link to="/app">Get started</Link>
+                      <Link to="/dash">Get started</Link>
                     </Button>
                     {
                       /* <Button variant="outline" asChild>

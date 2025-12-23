@@ -16,14 +16,20 @@ import {
 import { useState } from "react";
 
 const formSchema = z.object({
+  name: z.string().min(2, "Name must be at least 2 characters"),
   email: z.email(),
   password: z.string().min(8, "Password must be at least 8 characters"),
 });
 
-export function LoginPage() {
+/**
+ * Signup page for new users.
+ * Redirects to dashboard on successful registration.
+ */
+export function SignupPage() {
   const [loading, setLoading] = useState(false);
   const form = useForm({
     defaultValues: {
+      name: "",
       email: "",
       password: "",
     },
@@ -33,19 +39,23 @@ export function LoginPage() {
     },
     onSubmit: async ({ value }) => {
       setLoading(true);
-      await authClient.signIn.email({
-        email: value.email,
-        password: value.password,
-      }, {
-        onSuccess: () => {
-          setSessionCookies();
-          window.location.href = "/dash";
+      await authClient.signUp.email(
+        {
+          name: value.name,
+          email: value.email,
+          password: value.password,
         },
-        onError: (ctx) => {
-          alert(ctx.error.message);
-          setLoading(false);
+        {
+          onSuccess: () => {
+            setSessionCookies();
+            window.location.href = "/dash";
+          },
+          onError: (ctx) => {
+            alert(ctx.error.message);
+            setLoading(false);
+          },
         },
-      });
+      );
     },
   });
 
@@ -53,11 +63,11 @@ export function LoginPage() {
     <div className="flex min-h-screen items-center justify-center bg-muted/50">
       <Card className="w-full max-w-md">
         <CardHeader>
-          <CardTitle className="text-2xl text-center text-primary">
-            Welcome Back
+          <CardTitle className="text-center text-2xl text-primary">
+            Create Account
           </CardTitle>
           <CardDescription className="text-center">
-            Login to manage your georules
+            Sign up to start managing your georules
           </CardDescription>
         </CardHeader>
         <CardContent>
@@ -69,6 +79,31 @@ export function LoginPage() {
             }}
             className="space-y-6"
           >
+            <form.Field
+              name="name"
+              children={(field) => (
+                <div className="space-y-2">
+                  <Label htmlFor="name">Name</Label>
+                  <Input
+                    id="name"
+                    placeholder="Your name"
+                    name={field.name}
+                    value={field.state.value}
+                    onBlur={field.handleBlur}
+                    onChange={(e) => field.handleChange(e.target.value)}
+                  />
+                  {field.state.meta.errors
+                    ? (
+                      <p className="text-[0.8rem] font-medium text-destructive">
+                        {field.state.meta.errors.map((e) => e?.message).join(
+                          ", ",
+                        )}
+                      </p>
+                    )
+                    : null}
+                </div>
+              )}
+            />
             <form.Field
               name="email"
               children={(field) => (
@@ -120,13 +155,13 @@ export function LoginPage() {
               )}
             />
             <Button type="submit" className="w-full" disabled={loading}>
-              {loading ? "Logging in..." : "Login"}
+              {loading ? "Creating account..." : "Sign up"}
             </Button>
           </form>
           <p className="mt-4 text-center text-sm text-muted-foreground">
-            Don't have an account?{" "}
-            <Link to="/signup" className="text-primary hover:underline">
-              Sign up
+            Already have an account?{" "}
+            <Link to="/login" className="text-primary hover:underline">
+              Sign in
             </Link>
           </p>
         </CardContent>

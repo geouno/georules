@@ -93,3 +93,83 @@
     @apply bg-background text-foreground;
   }
 }
+
+/* Configure global minimal scrollbar - no arrows, subtle thumb. */
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+*::-webkit-scrollbar-thumb {
+  background: hsl(var(--muted-foreground) / 0.25);
+  border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb:hover {
+  background: hsl(var(--muted-foreground) / 0.4);
+}
+
+/* Hide scrollbar arrows/buttons. */
+*::-webkit-scrollbar-button {
+  display: none;
+}
+
+/* Configure Firefox scrollbar. */
+* {
+  scrollbar-width: thin;
+  scrollbar-color: hsl(var(--muted-foreground) / 0.25) transparent;
+}
+
+/* Define thinner variant for sidebar/compact areas. */
+.scrollbar-thin::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  border-radius: 3px;
+}
+
+/* Define tree item hover animation. */
+.tree-item {
+  transition: background-color 0.1s ease, padding-left 0.15s ease;
+}
+
+/* Adjust last child in tree - shorten the innermost vertical line to ~60%. */
+.tree-children > :last-child .tree-line:last-of-type {
+  bottom: 30%;
+}
+
+/* Define modal backdrop animation. */
+.modal-backdrop {
+  animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Define modal content animation. */
+.modal-content {
+  animation: slideUp 0.2s ease;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
