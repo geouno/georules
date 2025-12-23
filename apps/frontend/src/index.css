@@ -4,69 +4,84 @@
 
 @layer base {
   :root {
-    /* Appwrite Pink Light Mode (approximate) */
-    --background: 0 0% 100%;
-    --foreground: 222 47% 11%;
+    /* Define Bone palette - Gruvbox Light inspired. */
+    /* Background is exactly: hsl(40, 47%, 77%). */
+    --background: 40 47% 77%;
+    --foreground: 30 35% 15%;
 
-    --card: 0 0% 100%;
-    --card-foreground: 222 47% 11%;
+    --card: 40 45% 82%;
+    --card-foreground: 30 35% 15%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 47% 11%;
+    --popover: 40 48% 84%;
+    --popover-foreground: 30 35% 15%;
 
-    /* The Pink */
-    --primary: 340 79% 48%;
-    --primary-foreground: 210 40% 98%;
+    /* Use Paradise Red - warm maroon. */
+    --primary: 354 60% 43%;
+    --primary-foreground: 40 47% 90%;
 
-    --secondary: 210 40% 96.1%;
-    --secondary-foreground: 222 47% 11%;
+    --secondary: 40 38% 70%;
+    --secondary-foreground: 30 35% 15%;
 
-    --muted: 210 40% 96.1%;
-    --muted-foreground: 215.4 16.3% 46.9%;
+    --muted: 40 32% 68%;
+    --muted-foreground: 30 25% 35%;
 
-    --accent: 210 40% 96.1%;
-    --accent-foreground: 222 47% 11%;
+    --accent: 40 40% 72%;
+    --accent-foreground: 30 35% 15%;
 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 65% 45%;
+    --destructive-foreground: 40 47% 90%;
 
-    --border: 214.3 31.8% 91.4%;
-    --input: 214.3 31.8% 91.4%;
-    --ring: 340 79% 48%;
+    --border: 40 28% 65%;
+    --input: 40 35% 70%;
+    --ring: 354 60% 43%;
+
+    /* Use sidebar colors - slightly darker than background. */
+    --sidebar: 40 42% 73%;
+    --sidebar-foreground: 30 30% 18%;
+    --sidebar-border: 40 25% 62%;
+    --sidebar-accent: 40 38% 68%;
+    --sidebar-muted: 30 18% 40%;
 
     --radius: 0.5rem;
   }
 
   .dark {
-    /* Appwrite Pink Dark Mode (Deep Slate) */
-    --background: 222 47% 11%;
-    --foreground: 210 40% 98%;
+    /* Define warm dark mode - deep warm charcoal/chocolate. */
+    --background: 25 15% 10%;
+    --foreground: 35 15% 95%;
 
-    --card: 222 47% 11%;
-    --card-foreground: 210 40% 98%;
+    --card: 25 12% 12%;
+    --card-foreground: 35 15% 95%;
 
-    --popover: 222 47% 11%;
-    --popover-foreground: 210 40% 98%;
+    --popover: 25 14% 11%;
+    --popover-foreground: 35 15% 95%;
 
-    /* The Pink again */
-    --primary: 340 79% 58%; /* Slightly lighter for dark mode visibility */
-    --primary-foreground: 222 47% 11%;
+    /* Use Paradise Red - bit darker maroon for dark mode. */
+    --primary: 353 62% 41%;
+    --primary-foreground: 35 15% 95%;
 
-    --secondary: 217.2 32.6% 17.5%;
-    --secondary-foreground: 210 40% 98%;
+    --secondary: 25 10% 18%;
+    --secondary-foreground: 35 15% 95%;
 
-    --muted: 217.2 32.6% 17.5%;
-    --muted-foreground: 215 20.2% 65.1%;
+    --muted: 25 10% 18%;
+    --muted-foreground: 30 10% 60%;
 
-    --accent: 217.2 32.6% 17.5%;
-    --accent-foreground: 210 40% 98%;
+    --accent: 25 10% 18%;
+    --accent-foreground: 35 15% 95%;
 
-    --destructive: 0 62.8% 30.6%;
-    --destructive-foreground: 210 40% 98%;
+    --destructive: 0 62.8% 35%;
+    --destructive-foreground: 35 15% 95%;
 
-    --border: 217.2 32.6% 17.5%;
-    --input: 217.2 32.6% 17.5%;
-    --ring: 340 79% 58%;
+    --border: 25 10% 20%;
+    --input: 25 10% 20%;
+    --ring: 353 62% 41%;
+
+    /* Define sidebar specific colors - warm darker tones. */
+    --sidebar: 25 12% 8%;
+    --sidebar-foreground: 35 12% 90%;
+    --sidebar-border: 25 10% 15%;
+    --sidebar-accent: 25 10% 14%;
+    --sidebar-muted: 30 8% 55%;
   }
 }
 
