@@ -73,10 +73,20 @@ const app = new Elysia()
 export type App = typeof app;
 
 if (import.meta.main) {
-  app.listen(3000);
-  logger.info(
-    `Elysia is running at ${app.server?.hostname}:${app.server?.port}.`,
-  );
+  try {
+    const port = process.env.PORT || 3000;
+    app.listen({
+      port: Number(port),
+      hostname: "0.0.0.0",
+    }, () => {
+      logger.info(
+        `Elysia is running at ${app.server?.hostname}:${app.server?.port}.`,
+      );
+    });
+  } catch (error) {
+    console.error("Failed to start server:", error);
+    process.exit(1);
+  }
 }
 
 export { app };
