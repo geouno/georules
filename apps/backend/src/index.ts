@@ -7,7 +7,13 @@ import { rulesRouter } from "./routes/rules";
 import { foldersRouter } from "./routes/folders";
 
 const app = new Elysia()
-  .use(cors())
+  .use(cors({
+    origin: process.env.TRUSTED_ORIGINS
+      ? process.env.TRUSTED_ORIGINS.split(",")
+      : true,
+    credentials: true,
+    allowedHeaders: ["Content-Type", "Authorization"],
+  }))
   // Log incoming requests.
   .onRequest(({ request }) => {
     request.headers.set("x-start-time", Date.now().toString());

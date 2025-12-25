@@ -12,7 +12,22 @@ export const auth = betterAuth({
   emailAndPassword: {
     enabled: true,
   },
+  baseURL: process.env.BETTER_AUTH_URL,
   trustedOrigins: process.env.TRUSTED_ORIGINS?.split(",") || [],
+  advanced: {
+    useSecureCookies: process.env.NODE_ENV === "production",
+    crossSubDomainCookies: {
+      enabled: true,
+      domain: process.env.NODE_ENV === "production"
+        ? process.env.BETTER_AUTH_COOKIE_DOMAIN
+        : undefined,
+    },
+    defaultCookieAttributes: {
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    },
+    cookiePrefix: "georules",
+  },
   plugins: [
     bearer(),
   ],
