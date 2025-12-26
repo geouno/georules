@@ -13,9 +13,12 @@ export const auth = betterAuth({
     enabled: true,
   },
   baseURL: process.env.BETTER_AUTH_URL,
-  trustedOrigins: process.env.TRUSTED_ORIGINS?.split(",") || [],
+  trustedOrigins: process.env.TRUSTED_ORIGINS?.split(",")
+    .map((e) => e.trim()) || [],
   advanced: {
     useSecureCookies: process.env.NODE_ENV === "production",
+    disableOriginCheck: process.env.NODE_ENV !== "production" &&
+      !process.env.TRUSTED_ORIGINS,
     crossSubDomainCookies: {
       enabled: true,
       domain: process.env.NODE_ENV === "production"

@@ -9,7 +9,9 @@ import { foldersRouter } from "./routes/folders";
 const app = new Elysia()
   .use(cors({
     origin: process.env.TRUSTED_ORIGINS
-      ? process.env.TRUSTED_ORIGINS.split(",")
+      ? process.env.TRUSTED_ORIGINS.split(",").map((e) => e.trim())
+      : process.env.NODE_ENV === "production"
+      ? []
       : true,
     credentials: true,
     allowedHeaders: ["Content-Type", "Authorization"],
