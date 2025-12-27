@@ -96,7 +96,7 @@ function TreeIndent({ depth }: { depth: number }) {
   if (depth === 0) return null;
 
   return (
-    <div className="flex self-stretch shrink-0">
+    <div className="tree-indent flex self-stretch shrink-0">
       {Array.from({ length: depth }).map((_, i) => (
         <div
           key={i}

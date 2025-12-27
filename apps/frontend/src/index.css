@@ -140,7 +140,11 @@
 }
 
 /* Adjust last child in tree - shorten the innermost vertical line to ~60%. */
-.tree-children > :last-child .tree-line:last-of-type {
+.tree-children
+  > :last-child
+  .tree-indent
+  > :last-child:has(.tree-line)
+  .tree-line {
   bottom: 30%;
 }
 
