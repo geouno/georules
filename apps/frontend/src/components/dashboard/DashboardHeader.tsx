@@ -10,6 +10,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { authClient } from "@/lib/auth";
+import { assets } from "@/lib/config";
 import { clearSessionCookie } from "@/lib/cookies";
 
 type Theme = "light" | "dark";
@@ -61,7 +62,7 @@ export function DashboardHeader({
         {/* Logo and link to home page. */}
         <Link to="/" className="flex items-center gap-2">
           <img
-            src="https://play-lh.googleusercontent.com/htK3QI5pOC5_WQUcl8JTDLiq8fAXMnPtuAaPky_CVjXyyMb1Yh1aEVFAzmKBbJTkbCg"
+            src={assets.logo["256x-lite"] || assets.logo["256x"]}
             alt="georules"
             className="h-7 w-7 rounded border border-border"
           />

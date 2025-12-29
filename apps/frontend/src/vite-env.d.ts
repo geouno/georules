@@ -11,6 +11,20 @@ interface ImportMetaEnv {
 
   /** Georules API URL. */
   readonly VITE_API_URL: string;
+
+  // --- Assets ---
+
+  /** Favicon URL. */
+  readonly VITE_FAVICON_URL: string;
+
+  /** Logo URL (1024x1024). */
+  readonly VITE_LOGO_1024_URL: string;
+
+  /** Logo URL (256x256). */
+  readonly VITE_LOGO_256_URL: string;
+
+  /** Logo URL (256x256, lightweight/optimized version). */
+  readonly VITE_LOGO_256_LITE_URL: string;
 }
 
 interface ImportMeta {

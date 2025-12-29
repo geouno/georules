@@ -24,6 +24,7 @@ import {
 } from "@/components/ui/card";
 import { Checkbox } from "@/components/ui/checkbox";
 import { authClient } from "@/lib/auth";
+import { assets } from "@/lib/config";
 import { hasSessionHint } from "@/lib/cookies";
 
 type Theme = "light" | "dark";
@@ -329,7 +330,7 @@ export function LandingPage() {
         <div className="mx-auto grid h-16 max-w-6xl grid-cols-2 items-center px-4 sm:grid-cols-[1fr_auto_1fr] sm:px-6">
           <div className="flex items-center gap-3 justify-self-start">
             <img
-              src="https://play-lh.googleusercontent.com/htK3QI5pOC5_WQUcl8JTDLiq8fAXMnPtuAaPky_CVjXyyMb1Yh1aEVFAzmKBbJTkbCg"
+              src={assets.logo["256x-lite"] || assets.logo["256x"]}
               alt="georules logo"
               className="h-10 w-10 rounded-md border border-border bg-card object-cover"
             />
