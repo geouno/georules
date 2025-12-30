@@ -134,10 +134,81 @@
   border-radius: 3px;
 }
 
+/* -------------------------------------------------------------------------- */
+/* [BEGIN] Tree Item Styles & Fade Effect                                     */
+/* -------------------------------------------------------------------------- */
+
 /* Define tree item hover animation. */
 .tree-item {
-  transition: background-color 0.1s ease, padding-left 0.15s ease;
+  transition: background-color 0.1s ease-out, padding-left 0.15s ease;
 }
+
+@property --via-color {
+  syntax: "<color>";
+  initial-value: transparent;
+  inherits: false;
+}
+@property --to-color {
+  syntax: "<color>";
+  initial-value: transparent;
+  inherits: false;
+}
+
+/* Common styles for both pseudo-elements. */
+.tree-item ::before,
+.tree-item ::after {
+  --via-color: hsl(var(--sidebar));
+  --to-color: hsl(var(--sidebar));
+  /* Content is controlled by theme selectors below. */
+  background: linear-gradient(
+    to right,
+    transparent 0%,
+    var(--via-color) 25%,
+    var(--to-color) 100%
+  );
+  transition: --via-color 0.1s ease-out, --to-color 0.1s ease-out;
+}
+
+/* Use ::before on light theme. */
+:root:not(.dark) .tree-item ::before {
+  content: "";
+}
+:root:not(.dark) .tree-item ::after {
+  content: none;
+}
+
+/* Use ::after on dark theme. */
+.dark .tree-item ::after {
+  content: "";
+}
+.dark .tree-item ::before {
+  content: none;
+}
+
+/* Hovered state. */
+.tree-item:hover ::before,
+.tree-item:hover ::after {
+  --via-color: hsl(var(--sidebar-accent));
+  --to-color: hsl(var(--sidebar-accent));
+}
+
+/* Selected state. */
+.tree-item-selected ::before,
+.tree-item-selected ::after {
+  --via-color: color-mix(in srgb, hsl(var(--primary)), hsl(var(--sidebar)) 85%);
+  --to-color: color-mix(in srgb, hsl(var(--primary)), hsl(var(--sidebar)) 85%);
+}
+
+/* Selected and hovered state. */
+.tree-item-selected:hover ::before,
+.tree-item-selected:hover ::after {
+  --via-color: color-mix(in srgb, hsl(var(--primary)), hsl(var(--sidebar)) 80%);
+  --to-color: color-mix(in srgb, hsl(var(--primary)), hsl(var(--sidebar)) 80%);
+}
+
+/* -------------------------------------------------------------------------- */
+/* [END] Tree Item Styles & Fade Effect                                       */
+/* -------------------------------------------------------------------------- */
 
 /* Adjust last child in tree - shorten the innermost vertical line to ~60%. */
 .tree-children

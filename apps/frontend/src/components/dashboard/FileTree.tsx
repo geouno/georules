@@ -131,7 +131,7 @@ function FolderItem({ node, depth }: { node: TreeNode; depth: number }) {
     <div>
       <div
         className={cn(
-          "tree-item group flex items-center h-7 px-2 cursor-pointer rounded-sm",
+          "tree-item group flex h-7 cursor-pointer items-center overflow-clip rounded-sm px-2",
           "hover:bg-sidebar-accent",
         )}
         onClick={() => toggleExpanded(node.id)}
@@ -156,9 +156,11 @@ function FolderItem({ node, depth }: { node: TreeNode; depth: number }) {
           )}
 
         {/* Folder name. */}
-        <span className="truncate text-sm text-sidebar-foreground flex-1">
-          {node.name}
-        </span>
+        <div className="relative min-w-0 max-w-full flex-1">
+          <span className="block w-full truncate text-sm text-sidebar-foreground">
+            {node.name}
+          </span>
+        </div>
 
         {/* Add rule button, visible on hover. */}
         <button
@@ -166,10 +168,19 @@ function FolderItem({ node, depth }: { node: TreeNode; depth: number }) {
             e.stopPropagation();
             startCreateRuleInFolder(node.id);
           }}
-          className="shrink-0 p-0.5 rounded opacity-0 group-hover:opacity-100 hover:bg-sidebar-accent text-sidebar-muted hover:text-foreground transition-opacity"
+          className={cn(
+            "sticky right-4 shrink-0 self-stretch rounded p-0.5",
+            "z-0 pl-2 text-sidebar-muted transition-opacity hover:text-foreground",
+            // Create a fade effect through a gradient from transparent to the sidebar background on a pseudo-element.
+            // Hovered and selected backgrounds, as well as transition timings are handled at index.css.
+            // Theme toggle instant behavior is achieved by using a different pseudo-element for each theme.
+            // Note: in the case of integrating more comprehensive theming, we can switch to conditionally generated elements.
+            "before:pointer-events-none before:absolute before:inset-y-0 before:-left-full before:-z-10 before:w-[500%]",
+            "after:pointer-events-none after:absolute after:inset-y-0 after:-left-full after:-z-10 after:w-[500%]",
+          )}
           title="Add rule to this folder"
         >
-          <Plus className="h-3.5 w-3.5" />
+          <Plus className="h-3.5 w-3.5 opacity-0 transition-opacity group-hover:opacity-100" />
         </button>
       </div>
 
@@ -198,9 +209,9 @@ function RuleItem({ node, depth }: { node: TreeNode; depth: number }) {
   return (
     <div
       className={cn(
-        "tree-item group flex items-center h-7 px-2 cursor-pointer rounded-sm",
+        "tree-item group flex h-7 cursor-pointer items-center overflow-clip rounded-sm px-2",
         "hover:bg-sidebar-accent",
-        isSelected && "bg-primary/15 hover:bg-primary/20",
+        isSelected && "tree-item-selected bg-primary/15 hover:bg-primary/20",
       )}
       onClick={() => selectRule(node.data as RuleResponse)}
     >
@@ -214,16 +225,18 @@ function RuleItem({ node, depth }: { node: TreeNode; depth: number }) {
       <FileText className="h-4 w-4 shrink-0 text-sidebar-muted ml-0.5 mr-1.5" />
 
       {/* Rule name. */}
-      <span
-        className={cn(
-          "truncate text-sm flex-1",
-          isSelected
-            ? "text-foreground font-medium"
-            : "text-sidebar-foreground",
-        )}
-      >
-        {node.name}
-      </span>
+      <div className="relative min-w-0 max-w-full flex-1">
+        <span
+          className={cn(
+            "block w-full truncate text-sm",
+            isSelected
+              ? "font-medium text-foreground"
+              : "text-sidebar-foreground",
+          )}
+        >
+          {node.name}
+        </span>
+      </div>
 
       {/* Selection checkbox on the right side with a full-height click area. */}
       <div
@@ -231,7 +244,15 @@ function RuleItem({ node, depth }: { node: TreeNode; depth: number }) {
           e.stopPropagation();
           toggleChecked(node.id);
         }}
-        className="shrink-0 self-stretch flex items-center justify-center pl-2 pr-0.5 cursor-pointer"
+        className={cn(
+          "sticky right-4 z-0 flex shrink-0 cursor-pointer items-center justify-center self-stretch pl-2 pr-0.5",
+          // Create a fade effect through a gradient from transparent to the sidebar background on a pseudo-element.
+          // Hovered and selected backgrounds, as well as transition timings are handled at index.css.
+          // Theme toggle instant behavior is achieved by using a different pseudo-element for each theme.
+          // Note: in the case of integrating more comprehensive theming, we can switch to conditionally generated elements.
+          "before:pointer-events-none before:absolute before:inset-y-0 before:-left-full before:-z-10 before:w-[500%]",
+          "after:pointer-events-none after:absolute after:inset-y-0 after:-left-full after:-z-10 after:w-[500%]",
+        )}
       >
         <Checkbox
           checked={isChecked}
