@@ -6,7 +6,7 @@ COPY package.json bun.lock ./
 COPY packages ./packages
 COPY apps/backend ./apps/backend
 
-RUN bun install
+RUN bun install --frozen-lockfile
 
 WORKDIR /app/apps/backend
 
